@@ -18,7 +18,7 @@ class SpotifyUser < ActiveRecord::Base
     "#{SPOTIFY_URL}?#{state_param}&#{scopes_param}&#{redirect_uri_param}&#{client_id_param}&response_type=code"
   end
 
-  def self.get_authorization_code(code)
+  def self.get_access_token(code)
     client_substring = "#{CLIENT_ID}:#{CLIENT_SECRET}"
 
     data = {
@@ -40,9 +40,22 @@ class SpotifyUser < ActiveRecord::Base
       body: encoded_data
     )
 
-  if response.response_code == "200"
-    { success: true, response: response }
-  else
-    { success: false, error: "#{response.message}: #{response.body}" }
+    if response.code == 200
+      { success: true, response: response }
+    else
+      { success: false, error: "#{response.message}: #{response.body}" }
+    end
+  end
+
+  def self.get_basic_info(access_token)
+    response = HTTParty.get(
+      "https://api.spotify.com/v1/me",
+      headers: {
+        'Authorization' => "Bearer #{access_token}",
+        'Content-Type' => 'application/json'
+      }
+    )
+
+    puts("\n\n\n #{response.body}")
   end
 end

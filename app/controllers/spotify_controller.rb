@@ -8,8 +8,15 @@ class SpotifyController < ActionController::Base
 
   def link_spotify
     code = params["code"]
+    get_access_token = SpotifyUser.get_access_token(code)
 
-    authorization_res = SpotifyUser.get_authorization_code(code)
+    if get_access_token[:success]
+      access_res = JSON.parse(get_access_token[:response].body)
+      basic_info_res = SpotifyUser.get_basic_info(access_res[:access_token])
+    else
+      redirect_to "/"
+    end
+
   end
 
   def linked_spotify
