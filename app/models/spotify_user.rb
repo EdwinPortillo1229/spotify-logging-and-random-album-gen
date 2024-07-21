@@ -18,7 +18,7 @@ class SpotifyUser < ActiveRecord::Base
     "#{SPOTIFY_URL}?#{state_param}&#{scopes_param}&#{redirect_uri_param}&#{client_id_param}&response_type=code"
   end
 
-  def self.generate_spotify_token_post_url(code)
+  def self.get_authorization_code(code)
     client_substring = "#{CLIENT_ID}:#{CLIENT_SECRET}"
 
     data = {
@@ -40,8 +40,9 @@ class SpotifyUser < ActiveRecord::Base
       body: encoded_data
     )
 
-    puts "\n\n\nResponse #{response.code} #{response.message}: #{response.body}"
-    puts "Data sent: #{encoded_data}"
-    puts "Headers sent: #{headers}\n\n\n\n"
+  if response.response_code == "200"
+    { success: true, response: response }
+  else
+    { success: false, error: "#{response.message}: #{response.body}" }
   end
 end

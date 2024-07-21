@@ -9,10 +9,7 @@ class SpotifyController < ActionController::Base
   def link_spotify
     code = params["code"]
 
-    url = SpotifyUser.generate_spotify_token_post_url(code)
-
-    ##gotta do a post to 'https://accounts.spotify.com/api/token'
-    ##https://developer.spotify.com/documentation/web-api/tutorials/code-flow
+    authorization_res = SpotifyUser.get_authorization_code(code)
   end
 
   def linked_spotify
