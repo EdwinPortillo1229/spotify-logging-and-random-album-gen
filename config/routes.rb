@@ -8,6 +8,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "application#landing_page"
 
-  get "/link_spotify" => "spotify#link_spotify"
   get "/linked_spotify" => "spotify#linked_spotify"
 end
