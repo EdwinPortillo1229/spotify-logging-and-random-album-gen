@@ -55,7 +55,6 @@ class SpotifyUser < ActiveRecord::Base
         'Content-Type' => 'application/json'
       }
     )
-
-    puts("\n\n\n #{response.body}")
+    puts("\n\n\n access_token: #{access_token}\n\n #{response.body}\n\n")
   end
 end
