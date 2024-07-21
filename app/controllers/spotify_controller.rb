@@ -12,7 +12,7 @@ class SpotifyController < ActionController::Base
 
     if get_access_token[:success]
       access_res = JSON.parse(get_access_token[:response].body)
-      basic_info_res = SpotifyUser.get_basic_info(access_res["access_token"])
+      basic_info_res = SpotifyUser.create_or_find_spotify_user(access_res["access_token"])
     else
       redirect_to "/"
     end

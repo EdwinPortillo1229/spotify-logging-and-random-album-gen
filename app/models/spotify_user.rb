@@ -47,7 +47,7 @@ class SpotifyUser < ActiveRecord::Base
     end
   end
 
-  def self.get_basic_info(access_token)
+  def self.create_or_find_spotify_user(access_token)
     response = HTTParty.get(
       "https://api.spotify.com/v1/me",
       headers: {
@@ -55,6 +55,7 @@ class SpotifyUser < ActiveRecord::Base
         'Content-Type' => 'application/json'
       }
     )
-    puts("\n\n\n access_token: #{access_token}\n\n #{response.body}\n\n")
+
+
   end
 end
