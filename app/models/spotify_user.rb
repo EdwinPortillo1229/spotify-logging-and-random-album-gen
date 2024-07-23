@@ -90,7 +90,6 @@ class SpotifyUser < ActiveRecord::Base
 
       response["items"].each do |album|
         album = album["album"]
-        puts("#{number_album}: #{album["name"]}")
 
         all_albums << {
           artist: album["artists"][0]["name"],
