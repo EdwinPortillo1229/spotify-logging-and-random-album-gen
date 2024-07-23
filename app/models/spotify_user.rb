@@ -11,7 +11,7 @@ class SpotifyUser < ActiveRecord::Base
 
   def self.generate_spotify_authorize_url
     state_param = "state=#{self.generate_state}"
-    scopes_param = "scopes=#{SCOPES.join(" ")}"
+    scopes_param = "scope=#{SCOPES.join(" ")}"
     redirect_uri_param = "redirect_uri=#{REDIRECT_URI_LINK}"
     client_id_param = "client_id=#{CLIENT_ID}"
 
@@ -56,6 +56,56 @@ class SpotifyUser < ActiveRecord::Base
       }
     )
 
+    if response.code != 200
+      return { success: false, error: response.body }
+    end
 
+    res = JSON.parse(response.body)
+
+    user = SpotifyUser.find_or_initialize_by(external_id: res["id"])
+    user.access_token = access_token if (user.access_token != access_token)
+    user.save!
+
+    { success: true, user: user }
+  end
+
+  def load_albums!()
+    number_album = 0
+    next_present = true
+    all_albums = []
+    next_url = "https://api.spotify.com/v1/me/albums?limit=50"
+    while next_present
+      response = HTTParty.get(next_url,
+        headers: {
+          'Authorization' => "Bearer #{self.access_token}",
+          'Content-Type' => 'application/json'
+        }
+      )
+
+      if response["next"].present?
+        next_url = response["next"]
+      else
+        next_present = false
+      end
+
+      response["items"].each do |album|
+        album = album["album"]
+        puts("#{number_album}: #{album["name"]}")
+
+        all_albums << {
+          artist: album["artists"][0]["name"],
+          album_id: album["id"],
+          album_name: album["name"],
+          release_date: album["release_date"],
+          spotify_href: album["href"],
+          total_tracks: album["total_tracks"],
+          image_url: album["images"][0]["url"],
+        }
+
+        number_album = number_album + 1
+      end
+    end
+
+    all_albums
   end
 end

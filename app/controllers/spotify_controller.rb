@@ -1,7 +1,4 @@
 class SpotifyController < ActionController::Base
-  SPOTIFY_URL = "https://accounts.spotify.com/authorize?"
-  SCOPES="user-library-read user-read-email user-read-private"
-
   def spotify
     ##noop
   end
@@ -10,13 +7,16 @@ class SpotifyController < ActionController::Base
     code = params["code"]
     get_access_token = SpotifyUser.get_access_token(code)
 
-    if get_access_token[:success]
-      access_res = JSON.parse(get_access_token[:response].body)
-      basic_info_res = SpotifyUser.create_or_find_spotify_user(access_res["access_token"])
-    else
+    if !get_access_token[:success]
       redirect_to "/"
     end
 
+    access_res = JSON.parse(get_access_token[:response].body)
+    create_or_find_spotify_user = SpotifyUser.create_or_find_spotify_user(access_res["access_token"])
+
+    if !create_or_find_spotify_user[:success]
+      redirect_to "/"
+    end
   end
 
   def linked_spotify

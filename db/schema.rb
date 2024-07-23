@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_21_190002) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_23_012415) do
   create_table "spotify_users", force: :cascade do |t|
     t.string "display_name"
     t.string "external_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "access_token"
   end
 
 end
