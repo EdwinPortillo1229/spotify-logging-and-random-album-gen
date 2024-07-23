@@ -1,6 +1,7 @@
 class SpotifyUser < ActiveRecord::Base
   has_many :spotify_user_albums
   has_many :spotify_albums, through: :spotify_user_albums
+
   SCOPES = %w(user-library-read user-read-email user-read-private user-library-modify)
   SPOTIFY_URL = "https://accounts.spotify.com/authorize?"
   CLIENT_ID = "a2cb6f3e5f7340c3a1ed328590fab4b2"
