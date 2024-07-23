@@ -93,20 +93,20 @@ class SpotifyUser < ActiveRecord::Base
 
       response["items"].each do |album|
         album = album["album"]
-        debugger
 
-        all_albums << {
-          artist: album["artists"][0]["name"],
-          album_id: album["id"],
-          album_name: album["name"],
-          release_date: album["release_date"],
-          api_href: album["href"],
-          spotify_url: album["external_urls"]["spotify"],
-          total_tracks: album["total_tracks"]&.to_i,
-          image_url: album["images"][0]["url"],
-        }
+        album.find_or_initialize_by(external_id: album["id"])
 
-        number_album = number_album + 1
+        album.artist       = album["artists"][0]["name"]
+        album.name         = album["name"]
+        album.release_date = album["release_date"]
+        album.api_href     = album["href"]
+        album.spotify_url  = album["external_urls"]["spotify"]
+        album.total_tracks = album["total_tracks"]&.to_i
+        album.image_url    = album["images"][0]["url"],
+
+        album.save!
+
+        SpotifyUserAlbum.create!(spotify_user_id: self.id, spotify_album_id: album id)
       end
     end
 
