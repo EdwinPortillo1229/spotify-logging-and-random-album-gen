@@ -125,7 +125,9 @@ class SpotifyUser < ActiveRecord::Base
         self.spotify_user_albums.create!(spotify_album_id: album.id)
       end
 
-      self.spotify_user_albums.where(spotify_album_id: album_ids).destroy_all
     end
+
+    ##if we didnt find the album, delete it!
+    self.spotify_user_albums.where(spotify_album_id: album_ids).destroy_all
   end
 end
