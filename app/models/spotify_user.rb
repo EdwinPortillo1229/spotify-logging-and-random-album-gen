@@ -77,7 +77,6 @@ class SpotifyUser < ActiveRecord::Base
     next_present = true
     album_ids = self.spotify_album_ids
 
-
     next_url = "https://api.spotify.com/v1/me/albums?limit=50"
     while next_present
       response = HTTParty.get(next_url,
@@ -124,7 +123,6 @@ class SpotifyUser < ActiveRecord::Base
 
         self.spotify_user_albums.create!(spotify_album_id: album.id)
       end
-
     end
 
     ##if we didnt find the album, delete it!
