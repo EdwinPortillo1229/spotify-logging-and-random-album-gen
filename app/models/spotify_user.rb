@@ -93,23 +93,30 @@ class SpotifyUser < ActiveRecord::Base
 
       response["items"].each do |album|
         album = album["album"]
+        puts(album["name"])
+        next if album["album_type"] == "single"
 
-        album.find_or_initialize_by(external_id: album["id"])
+        album = SpotifyAlbum.find_by(external_id: album["id"])
 
-        album.artist       = album["artists"][0]["name"]
-        album.name         = album["name"]
-        album.release_date = album["release_date"]
-        album.api_href     = album["href"]
-        album.spotify_url  = album["external_urls"]["spotify"]
-        album.total_tracks = album["total_tracks"]&.to_i
-        album.image_url    = album["images"][0]["url"],
+        if album.present?
+          ##make sure the connection is there
+          next if self.spotify_user_albums.find_by(spotify_album_id: album.id).present?
 
-        album.save!
+          self.spotify_user_albums.create!(spotify_album_id: album.id)
+        else
+          album = SpotifyAlbum.new 
+          album.artist       = album["artists"][0]["name"]
+          album.name         = album["name"]
+          album.release_date = album["release_date"]
+          album.api_href     = album["href"]
+          album.spotify_url  = album["external_urls"]["spotify"]
+          album.total_tracks = album["total_tracks"]&.to_i
+          album.image_url    = album["images"][0]["url"],
+          album.save!
 
-        SpotifyUserAlbum.create!(spotify_user_id: self.id, spotify_album_id: album id)
+          SpotifyUserAlbum.create!(spotify_user_id: self.id, spotify_album_id: album.id)
+        end
       end
     end
-
-    all_albums
   end
 end
