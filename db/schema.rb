@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_23_211710) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_24_001257) do
   create_table "spotify_albums", force: :cascade do |t|
     t.string "artist"
     t.string "external_id"
@@ -22,6 +22,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_23_211710) do
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "album_type"
   end
 
   create_table "spotify_user_albums", force: :cascade do |t|

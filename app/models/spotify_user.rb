@@ -75,7 +75,9 @@ class SpotifyUser < ActiveRecord::Base
   def load_albums!()
     number_album = 0
     next_present = true
-    all_albums = []
+    album_ids = self.spotify_album_ids
+
+
     next_url = "https://api.spotify.com/v1/me/albums?limit=50"
     while next_present
       response = HTTParty.get(next_url,
@@ -91,32 +93,39 @@ class SpotifyUser < ActiveRecord::Base
         next_present = false
       end
 
-      response["items"].each do |album|
-        album = album["album"]
-        puts(album["name"])
-        next if album["album_type"] == "single"
+      response["items"].each do |album_data|
+        album_data = album_data["album"]
+        next if album_data["album_type"] == "single"
 
-        album = SpotifyAlbum.find_by(external_id: album["id"])
+        album = SpotifyAlbum.find_by(external_id: album_data["id"])
 
-        if album.present?
-          ##make sure the connection is there
-          next if self.spotify_user_albums.find_by(spotify_album_id: album.id).present?
-
-          self.spotify_user_albums.create!(spotify_album_id: album.id)
-        else
+        if !album.present?
           album = SpotifyAlbum.new 
-          album.artist       = album["artists"][0]["name"]
-          album.name         = album["name"]
-          album.release_date = album["release_date"]
-          album.api_href     = album["href"]
-          album.spotify_url  = album["external_urls"]["spotify"]
-          album.total_tracks = album["total_tracks"]&.to_i
-          album.image_url    = album["images"][0]["url"],
+          album.artist       = album_data["artists"][0]["name"]
+          album.name         = album_data["name"]
+          album.release_date = album_data["release_date"]
+          album.api_href     = album_data["href"]
+          album.spotify_url  = album_data["external_urls"]["spotify"]
+          album.total_tracks = album_data["total_tracks"]&.to_i
+          album.image_url    = album_data["images"][0]["url"]
+          album.album_type   = album_data["album_type"]
+          album.external_id  = album_data["id"]
           album.save!
 
-          SpotifyUserAlbum.create!(spotify_user_id: self.id, spotify_album_id: album.id)
+          self.spotify_user_albums.create!(spotify_album_id: album.id)
+          next
         end
+
+        ##make sure the connection is there
+        if self.spotify_user_albums.find_by(spotify_album_id: album.id).present?
+          album_ids.delete(album.id)
+          next
+        end
+
+        self.spotify_user_albums.create!(spotify_album_id: album.id)
       end
+
+      self.spotify_user_albums.where(spotify_album_id: album_ids).destroy_all
     end
   end
 end
