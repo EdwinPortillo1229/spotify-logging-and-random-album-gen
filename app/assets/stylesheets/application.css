@@ -19,3 +19,7 @@
   --secondary-color: #2F4F4F;
   --tertiary-color: #C5E0BE;
 }
+
+body{
+  background-color: var(--primary-color);
+}
