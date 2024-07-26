@@ -1,4 +1,5 @@
 class SpotifyController < ActionController::Base
+  layout 'application'
   def spotify
     ##noop
   end
