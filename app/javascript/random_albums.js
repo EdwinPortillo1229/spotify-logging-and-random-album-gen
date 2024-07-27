@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <b>Number of Tracks:</b> <i>${album.total_tracks}</i>
             </p>
             <a target="_blank" class="spotify-link" href="${album.spotify_url}">
-              <img class="spotify-logo-image" src="/assets/spotify_logo.png">
+              <img class="spotify-logo-image" src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg">
             </a>
           </div>
         </div>
