@@ -15,13 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
               <b>Title:</b> <i>${album.name}</i>
             </p>
             <p class="album-artist">
-              ${album.artist}
+              <b>Artist:</b> <i>${album.artist}</i>
             </p>
             <p class="album-release_date">
-              ${album.release_date}
+              <b>Release Date:</b> <i>${album.release_date}</i>
             </p>
             <p class="album-total_tracks">
-              ${album.total_tracks}
+              <b>Number of Tracks:</b> <i>${album.total_tracks}</i>
             </p>
           </div>
         </div>
