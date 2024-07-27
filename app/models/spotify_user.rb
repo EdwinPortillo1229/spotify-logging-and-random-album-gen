@@ -6,7 +6,8 @@ class SpotifyUser < ActiveRecord::Base
   SPOTIFY_URL = "https://accounts.spotify.com/authorize?"
   CLIENT_ID = "a2cb6f3e5f7340c3a1ed328590fab4b2"
   CLIENT_SECRET = "30e36aa57f5a444591cb463a5ca128fa"
-  REDIRECT_URI_LINK = "https://spotify-random-liked-albums-cde946bf36b7.herokuapp.com/link_spotify"
+  REDIRECT_URI_LINK_PROD = "https://spotify-random-liked-albums-cde946bf36b7.herokuapp.com/link_spotify"
+  REDIRECT_URI_LINK_DEV = "http://127.0.0.1:3000/link_spotify"
 
   def self.generate_state
     SecureRandom.hex(16)
@@ -15,7 +16,7 @@ class SpotifyUser < ActiveRecord::Base
   def self.generate_spotify_authorize_url
     state_param = "state=#{self.generate_state}"
     scopes_param = "scope=#{SCOPES.join(" ")}"
-    redirect_uri_param = "redirect_uri=#{REDIRECT_URI_LINK}"
+    redirect_uri_param = Rails.env.production? ? "redirect_uri=#{REDIRECT_URI_LINK_PROD}" : "redirect_uri=#{REDIRECT_URI_LINK_DEV}"
     client_id_param = "client_id=#{CLIENT_ID}"
 
     "#{SPOTIFY_URL}?#{state_param}&#{scopes_param}&#{redirect_uri_param}&#{client_id_param}&response_type=code"
@@ -24,10 +25,11 @@ class SpotifyUser < ActiveRecord::Base
   def self.get_access_token(code)
     client_substring = "#{CLIENT_ID}:#{CLIENT_SECRET}"
 
+    proper_link = Rails.env.production? ? REDIRECT_URI_LINK_PROD : REDIRECT_URI_LINK_DEV
     data = {
       grant_type: 'authorization_code',
       code: code,
-      redirect_uri: REDIRECT_URI_LINK
+      redirect_uri: proper_link
     }
 
     encoded_data = data.map { |k,v| "#{k}=#{CGI.escape(v.to_s)}" }.join('&')
