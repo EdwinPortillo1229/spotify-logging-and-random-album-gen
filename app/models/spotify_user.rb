@@ -5,7 +5,7 @@ class SpotifyUser < ActiveRecord::Base
   SCOPES = %w(user-library-read user-read-email user-read-private user-library-modify)
   SPOTIFY_URL = "https://accounts.spotify.com/authorize?"
   CLIENT_ID = "a2cb6f3e5f7340c3a1ed328590fab4b2"
-  CLIENT_SECRET = "3333183bf89e4639a8a8a549dde8a9e3"
+  CLIENT_SECRET = "05c095d48e654dbeb5ce16a92ac8fcfb"
   REDIRECT_URI_LINK = "http://127.0.0.1:3000/link_spotify"
 
   def self.generate_state
