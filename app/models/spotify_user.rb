@@ -6,7 +6,7 @@ class SpotifyUser < ActiveRecord::Base
   SPOTIFY_URL = "https://accounts.spotify.com/authorize?"
   CLIENT_ID = "30e36aa57f5a444591cb463a5ca128fa"
   CLIENT_SECRET = "05c095d48e654dbeb5ce16a92ac8fcfb"
-  REDIRECT_URI_LINK = "https://spotify-random-liked-albums-20d00a4c63a7.herokuapp.com/link_spotify"
+  REDIRECT_URI_LINK = "https://spotify-random-liked-albums-cde946bf36b7.herokuapp.com/link_spotify"
 
   def self.generate_state
     SecureRandom.hex(16)
