@@ -129,6 +129,13 @@ body {
   height: 30px;
 }
 
+#randomized-albums-container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
 .spinner-container {
   transform: translate(-50%, -50%);
   width: 25px;

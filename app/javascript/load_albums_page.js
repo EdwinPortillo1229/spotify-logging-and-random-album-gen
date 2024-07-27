@@ -8,5 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loaderButton.style.display = "none";
     spinner.style.display = "block";
+
+
   });
 });
