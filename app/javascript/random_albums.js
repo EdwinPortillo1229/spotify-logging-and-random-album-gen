@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
       albumDivs += `
         <div class="album-div">
           <div class="image-container">
-            <img src="${album.image_url}" class="album-image">
+            <img src="${album.image_url}" class="album-image" style="width:250px;height:250px;">
           </div>
           <div class="album-info-container">
             <p class="album-title">
@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const randomizer = document.querySelector('#get-random-albums-link');
-  randomizer.addEventListener('click', async () => {
+  randomizer.addEventListener('click', async (e) => {
+    e.preventDefault();
     const randomAlbumContainer = document.querySelector("#randomized-albums-container");
     randomAlbumContainer.innerHTML = '';
     const userId =  document.querySelector("#hidden-user-id-input").dataset.userId;
