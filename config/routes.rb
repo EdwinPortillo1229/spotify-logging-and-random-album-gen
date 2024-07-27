@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   get "/linked_spotify" => "spotify#linked_spotify"
   get "/random_albums/:spotify_user_id" => "spotify#random_albums"
   get "/get_random_albums/:spotify_user_id" => "spotify#get_random_albums"
+  get "/load_albums_page/:spotify_user_id" => "spotify#load_albums_page"
+  post "/load_albums" => "spotify#load_albums"
 end

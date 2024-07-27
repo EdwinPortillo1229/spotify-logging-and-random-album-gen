@@ -137,7 +137,7 @@ class SpotifyUser < ActiveRecord::Base
   end
 
   def grab_five_random_albums
-    five_album_ids = self.spotify_album_ids.sample(5)
+    five_album_ids = self.spotify_album_ids&.sample(5)
     self.spotify_albums.where(id: five_album_ids)
   end
 end

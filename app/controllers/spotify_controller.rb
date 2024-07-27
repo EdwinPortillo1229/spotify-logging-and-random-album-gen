@@ -27,6 +27,11 @@ class SpotifyController < ActionController::Base
       redirect_to "/"
     end
 
+    user = SpotifyUser.find(params[:spotify_user_id])
+    if user.spotify_albums&.last.blank?
+      redirect_to "/load_albums_page/#{user.id}"
+    end
+
     @user_id = params[:spotify_user_id]
   end
 
@@ -38,7 +43,15 @@ class SpotifyController < ActionController::Base
     user = SpotifyUser.find(params[:spotify_user_id])
     albums = user.grab_five_random_albums
 
-    render json: { success: true, albums: albums }
+    if albums.blank?
+      render json: { success: false, message: "No albums found" }
+    else
+      render json: { success: true, albums: albums }
+    end
+  end
+
+  def load_albums_page
+
   end
 
   def load_albums
@@ -46,5 +59,6 @@ class SpotifyController < ActionController::Base
       return { success: false, error: "Spotify User ID missing" }
     end
     user = SpotifyUser.find(params[:spotify_user_id])
+
   end
 end
