@@ -84,15 +84,16 @@ body {
 }
 
 .album-div {
-  justify-content: center;
-  height: 15vh;
   border: 5px solid var(--secondary-color);
   background-color: var(--tertiary-color);
   border-radius: 10px;
-  padding: 30px;
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
+}
+
+.album-div p{
+  margin: 0;
 }
