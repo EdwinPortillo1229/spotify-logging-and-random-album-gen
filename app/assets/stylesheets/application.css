@@ -131,19 +131,19 @@ body {
 
 .spinner-container {
   transform: translate(-50%, -50%);
-  z-index: 9999; /* Ensures it stays on top */
   width: 25px;
   height: 25px;
 }
 
 .spinner {
-  border: 10px solid var(--primary-color); /* Light grey */
-  border-top: 10px solid var(--secondary-color); /* Blue */
+  display: none;
+  border: 10px solid var(--primary-color);
+  border-top: 10px solid var(--secondary-color);
   border-radius: 50%;
   width: 25px;
   height: 25px;
   animation: spin 1s linear infinite;
-  margin: auto; /* Center the spinner within the container */
+  margin: auto;
   transform: translate(-50%, -50%);
 }
 

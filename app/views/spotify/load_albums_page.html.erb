@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'load_albums_page' %>
 <div class="parent-of-centralized-div">
   <div class="centralized-div">
     <h3 class="main-header" style="margin-bottom:0;">
@@ -7,10 +8,10 @@
       (Note: this could take up to 5 minutes, please be patient)
     </p>
 
-    <a href="" class="prettier-link">
+    <a href="" class="prettier-link" id="load-albums-button">
       Load Albums!
     </a>
-    <div class="spinner-container">
+    <div class="spinner-container" id="spinner">
       <div class="spinner"></div>
     </div>
   </div>
