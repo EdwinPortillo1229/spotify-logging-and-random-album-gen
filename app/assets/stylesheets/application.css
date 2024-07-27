@@ -43,7 +43,7 @@ body{
   text-align: center;
   display: flex;
   flex-direction: column; /* Children will be in a row. Default, but explicit here */
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .main-header {
