@@ -51,7 +51,16 @@ class SpotifyController < ActionController::Base
   end
 
   def load_albums_page
+    if params[:spotify_user_id].blank?
+      redirect_to "/"
+    end
+    user = SpotifyUser.find(params[:spotify_user_id])
 
+    if user.spotify_albums.last.present?
+      @header_text = "Please click the button below to get an up to date album library to pick from!"
+    else
+      @header_text ="It seems we don't have your library, please click below to grab em!"
+    end
   end
 
   def load_albums
