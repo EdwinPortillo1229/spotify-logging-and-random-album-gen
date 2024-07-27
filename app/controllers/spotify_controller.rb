@@ -23,11 +23,10 @@ class SpotifyController < ActionController::Base
   end
 
   def random_albums
-    if params[:spotify_user_id].blank?
+    if params[:spotify_user_id].blank? || (user = SpotifyUser.find(params[:spotify_user_id])).blank?
       redirect_to "/"
     end
 
-    user = SpotifyUser.find(params[:spotify_user_id])
     if user.spotify_albums&.last.blank?
       redirect_to "/load_albums_page/#{user.id}"
     end
@@ -36,11 +35,10 @@ class SpotifyController < ActionController::Base
   end
 
   def get_random_albums
-    if params[:spotify_user_id].blank?
+    if params[:spotify_user_id].blank? || (user = SpotifyUser.find(params[:spotify_user_id])).blank?
       redirect_to "/"
     end
 
-    user = SpotifyUser.find(params[:spotify_user_id])
     albums = user.grab_five_random_albums
 
     if albums.blank?
@@ -51,23 +49,22 @@ class SpotifyController < ActionController::Base
   end
 
   def load_albums_page
-    if params[:spotify_user_id].blank?
+    if params[:spotify_user_id].blank? || (user = SpotifyUser.find(params[:spotify_user_id])).blank?
       redirect_to "/"
     end
-    user = SpotifyUser.find(params[:spotify_user_id])
 
     if user.spotify_albums.last.present?
-      @header_text = "Please click the button below to get an up to date album library to pick from!"
+      @header_text = "Please click the button below to get an up-to-date album library to pick from!"
     else
       @header_text ="It seems we don't have your library, please click below to grab em!"
     end
+
+    @user_id = params[:spotify_user_id]
   end
 
   def load_albums
-    if params[:spotify_user_id].blank?
+    if params[:spotify_user_id].blank? || (user = SpotifyUser.find(params[:spotify_user_id])).blank?
       return { success: false, error: "Spotify User ID missing" }
     end
-    user = SpotifyUser.find(params[:spotify_user_id])
-
   end
 end
