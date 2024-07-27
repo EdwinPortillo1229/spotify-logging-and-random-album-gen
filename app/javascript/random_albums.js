@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userId =  document.querySelector("#hidden-user-id-input").dataset.userId;
     const res = await fetch( `/get_random_albums/${userId}`);
 
-    if !(res.ok) {
+    if (!res.ok) {
       alert("Something went wrong :(")
       return;
     }

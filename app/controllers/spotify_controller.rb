@@ -44,7 +44,7 @@ class SpotifyController < ActionController::Base
     if albums.blank?
       render json: { success: false, message: "No albums found" }, status: 400
     else
-      render json: { success: true, albums: albums }, status: 400
+      render json: { success: true, albums: albums }, status: 200
     end
   end
 
