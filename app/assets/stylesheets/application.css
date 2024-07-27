@@ -28,12 +28,10 @@ body{
 .parent-of-centralized-div{
   display: flex;
   justify-content: center;
-  height: 100vh;
+  flex-direction: column;
 }
 
 .centralized-div{
-  justify-content: center;
-  height: 15vh;
   border-width: 5px;
   border-style: solid;
   border-color: var(--secondary-color);
@@ -84,4 +82,19 @@ body{
   padding: 6px;
   display: inline-block;
   margin-bottom: 2%;
+}
+
+.album-div{
+  justify-content: center;
+  height: 15vh;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--secondary-color);
+  background-color: var(--tertiary-color);
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column; /* Children will be in a row. Default, but explicit here */
+  justify-content: center;
 }
