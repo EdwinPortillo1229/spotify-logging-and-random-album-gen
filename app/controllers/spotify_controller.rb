@@ -67,6 +67,7 @@ class SpotifyController < ActionController::Base
       render json: { success: false, error: "Spotify User ID missing" }, status: 400
     end
 
+    user.load_albums!
     render json: { success: true }, status: 200
   end
 end

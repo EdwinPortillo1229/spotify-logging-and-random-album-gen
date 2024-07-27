@@ -18,5 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify({spotify_user_id: userId})
     });
 
+    if (!res.ok){
+      alert("Something went wrong :(");
+      loaderButton.style.display = "block";
+      spinner.style.display = "none";
+    }
+
+    loaderButton.style.display = "block";
+    spinner.style.display = "none";
   });
 });
