@@ -20,28 +20,31 @@
   --tertiary-color: #C5E0BE;
 }
 
-body{
+body {
   background-color: var(--primary-color);
   font-family: 'FreeMono', monospace;
 }
 
-.parent-of-centralized-div{
+.parent-of-centralized-div {
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
   flex-direction: column;
 }
 
-.centralized-div{
-  border-width: 5px;
-  border-style: solid;
-  border-color: var(--secondary-color);
+.centralized-div {
+  border: 5px solid var(--secondary-color);
   background-color: var(--tertiary-color);
   border-radius: 10px;
   padding: 30px;
   text-align: center;
   display: flex;
-  flex-direction: column; /* Children will be in a row. Default, but explicit here */
+  flex-direction: column;
   justify-content: center;
+  width: 100%;
 }
 
 .main-header {
@@ -52,9 +55,7 @@ body{
 .prettier-link {
   color: inherit;
   text-decoration: none;
-  border-width: 3px;
-  border-style: solid;
-  border-color: var(--secondary-color);
+  border: 3px solid var(--secondary-color);
   background-color: var(--primary-color);
   border-radius: 10px;
   padding: 6px;
@@ -67,16 +68,14 @@ body{
   text-decoration: none;
 }
 
-.prettier-link:hover, .prettier-link:focus{
+.prettier-link:hover, .prettier-link:focus {
   background-color: var(--secondary-color);
 }
 
 .prettier-link-disabled {
   color: inherit;
   text-decoration: none;
-  border-width: 3px;
-  border-style: solid;
-  border-color: #515854;
+  border: 3px solid #515854;
   background-color: #515854;
   border-radius: 10px;
   padding: 6px;
@@ -84,17 +83,16 @@ body{
   margin-bottom: 2%;
 }
 
-.album-div{
+.album-div {
   justify-content: center;
   height: 15vh;
-  border-width: 5px;
-  border-style: solid;
-  border-color: var(--secondary-color);
+  border: 5px solid var(--secondary-color);
   background-color: var(--tertiary-color);
   border-radius: 10px;
   padding: 30px;
   text-align: center;
   display: flex;
-  flex-direction: column; /* Children will be in a row. Default, but explicit here */
+  flex-direction: column;
   justify-content: center;
+  width: 100%;
 }
