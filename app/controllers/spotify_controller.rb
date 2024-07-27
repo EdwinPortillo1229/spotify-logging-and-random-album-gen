@@ -42,9 +42,9 @@ class SpotifyController < ActionController::Base
     albums = user.grab_five_random_albums
 
     if albums.blank?
-      render json: { success: false, message: "No albums found" }
+      render json: { success: false, message: "No albums found" }, status: 400
     else
-      render json: { success: true, albums: albums }
+      render json: { success: true, albums: albums }, status: 400
     end
   end
 
