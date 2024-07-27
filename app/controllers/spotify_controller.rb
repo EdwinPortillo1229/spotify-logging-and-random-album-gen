@@ -17,7 +17,12 @@ class SpotifyController < ActionController::Base
 
     if !create_or_find_spotify_user[:success]
       redirect_to "/"
+    else
+      redirect_to "/random_albums"
     end
+  end
+
+  def random_albums
   end
 
   def linked_spotify
