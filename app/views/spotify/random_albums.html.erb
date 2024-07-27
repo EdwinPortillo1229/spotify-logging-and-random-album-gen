@@ -1,11 +1,24 @@
 <%= javascript_include_tag 'random_albums' %>
+<input id="hidden-user-id-input" data-user-id="<%= @user_id %>" hidden>
 <div class="parent-of-centralized-div">
-  <div id="link-spotify" class="centralized-div">
-    <h4 id="link-spotify-main-header" class="main-header">
+  <div class="centralized-div">
+    <h4 class="main-header">
       Go ahead, do it
     </h4>
     <a href="" class="prettier-link" id="get-random-albums-link">
       Give me random albums
     </a>
+  </div>
+
+  <div class="randomized-album">
+    <div class="random-album-art-div">
+      <img src="" class="random-album-cover">
+    </div>
+
+    <div class="random-album-information">
+      <h5 class="random-album-title"></h5>
+      <p class="random-album-artist"></p>
+      <p class="random-album-release-date"></p>
+    </div>
   </div>
 </div>

@@ -18,13 +18,18 @@ class SpotifyController < ActionController::Base
     if !create_or_find_spotify_user[:success]
       redirect_to "/"
     else
-      redirect_to "/random_albums"
+      redirect_to "/random_albums/#{create_or_find_spotify_user[:user].id}"
     end
   end
 
   def random_albums
+    @user_id = params[:spotify_user_id]
   end
 
-  def linked_spotify
+  def get_random_albums
+    user = SpotifyUser.find(params[:spotify_user_id])
+    albums = user.grab_five_random_albums
+
+    render json: { success: true, albums: albums }
   end
 end
