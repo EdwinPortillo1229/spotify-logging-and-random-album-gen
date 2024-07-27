@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
       albumDivs += `
         <div class="album-div">
           <div class="image-container">
-            <img src="${album.image_url}" class="album-image" style="width:75px;height:75px;">
+            <img src="${album.image_url}" class="album-image">
           </div>
           <div class="album-info-container">
             <p class="album-title">
-              ${album.name}
+              <b>Title:</b> <i>${album.name}</i>
             </p>
             <p class="album-artist">
               ${album.artist}
