@@ -64,7 +64,9 @@ class SpotifyController < ActionController::Base
 
   def load_albums
     if params[:spotify_user_id].blank? || (user = SpotifyUser.find(params[:spotify_user_id])).blank?
-      return { success: false, error: "Spotify User ID missing" }
+      render json: { success: false, error: "Spotify User ID missing" }, status: 400
     end
+
+    render json: { success: true }, status: 200
   end
 end
