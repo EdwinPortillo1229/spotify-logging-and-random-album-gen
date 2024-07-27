@@ -135,7 +135,7 @@ body {
   height: 25px;
 }
 
-.spinner {
+#spinner {
   display: none;
   border: 10px solid var(--primary-color);
   border-top: 10px solid var(--secondary-color);
