@@ -107,6 +107,7 @@ body {
   word-break: break-word; /* Ensures breaks within words where appropriate */
   white-space: normal; /* Ensures normal wrapping behavior */
   padding: 5px;
+  position: relative;
 }
 
 .album-div .album-info-container p{
@@ -115,4 +116,15 @@ body {
 
 .album-div p{
   margin: 0;
+}
+
+.spotify-link{
+  position: absolute;
+  bottom: 0;
+  right: 3px;
+}
+
+.spotify-logo-image{
+  width: 30px;
+  height: 30px;
 }
