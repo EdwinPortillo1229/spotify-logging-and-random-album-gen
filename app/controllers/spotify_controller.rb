@@ -23,13 +23,28 @@ class SpotifyController < ActionController::Base
   end
 
   def random_albums
+    if params[:spotify_user_id].blank?
+      redirect_to "/"
+    end
+
     @user_id = params[:spotify_user_id]
   end
 
   def get_random_albums
+    if params[:spotify_user_id].blank?
+      redirect_to "/"
+    end
+
     user = SpotifyUser.find(params[:spotify_user_id])
     albums = user.grab_five_random_albums
 
     render json: { success: true, albums: albums }
+  end
+
+  def load_albums
+    if params[:spotify_user_id].blank?
+      return { success: false, error: "Spotify User ID missing" }
+    end
+    user = SpotifyUser.find(params[:spotify_user_id])
   end
 end

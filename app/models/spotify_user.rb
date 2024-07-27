@@ -86,6 +86,10 @@ class SpotifyUser < ActiveRecord::Base
         }
       )
 
+      if response.code != 200
+        return { success: false, error: response.body }
+      end
+
       if response["next"].present?
         next_url = response["next"]
       else
@@ -117,6 +121,7 @@ class SpotifyUser < ActiveRecord::Base
 
         ##make sure the connection is there
         if self.spotify_user_albums.find_by(spotify_album_id: album.id).present?
+          puts("\n deleting #{album.name}")
           album_ids.delete(album.id)
           next
         end
@@ -127,6 +132,8 @@ class SpotifyUser < ActiveRecord::Base
 
     ##if we didnt find the album, delete it!
     self.spotify_user_albums.where(spotify_album_id: album_ids).destroy_all
+
+    return { success: true }
   end
 
   def grab_five_random_albums
