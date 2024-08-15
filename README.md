@@ -1,7 +1,7 @@
 <h1>Spotify Library Random Album Generator</h1>
 
 <p>
-  This is a pretty simple app! Lives here: https://spotify-random-liked-albums-cde946bf36b7.herokuapp.com/
+  This is a pretty simple app! Lives here: https://spotify-random-liked-albums-cde946bf36b7.herokuapp.com/ (but as of now Spotify hasn't approved my app on their side, so only select users can use the API -- AKA make my app work for them. Let me know if you would like access!)
 </p>
 
 <p>
