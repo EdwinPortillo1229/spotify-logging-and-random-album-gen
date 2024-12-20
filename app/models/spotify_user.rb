@@ -4,8 +4,8 @@ class SpotifyUser < ActiveRecord::Base
 
   SCOPES = %w(user-library-read user-read-private user-library-modify)
   SPOTIFY_URL = "https://accounts.spotify.com/authorize?"
-  CLIENT_ID = "a2cb6f3e5f7340c3a1ed328590fab4b2"
-  CLIENT_SECRET = "30e36aa57f5a444591cb463a5ca128fa"
+  CLIENT_ID = ENV['SECOND_CLIENT_ID']
+  CLIENT_SECRET = ENV['SECOND_CLIENT_SECRET']
   REDIRECT_URI_LINK_PROD = "https://spotify-random-liked-albums-cde946bf36b7.herokuapp.com/link_spotify"
   REDIRECT_URI_LINK_DEV = "http://127.0.0.1:3000/link_spotify"
 
